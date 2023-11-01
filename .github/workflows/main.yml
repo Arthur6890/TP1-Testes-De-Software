@@ -1,4 +1,4 @@
-name: TP1-Testes-De-Software
+name: Companhia Aerea
 
 on:
   push:
@@ -7,24 +7,22 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [16.x]
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v2
-
-      - name: Configurar ambiente Python
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          python-version: 3.8
-
-      # - name: Instalar dependências
-      #   run: pip install -r requirements.txt
-
-      - name: Executar testes
-        run: python -m unittest discover
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test:unit
+      - run: npm run test:integration
