@@ -1,13 +1,36 @@
 import os
+import csv
+import json
+
 
 tasks = []
 task_categories = {}
 archived_tasks = []
 recurring_tasks = []
+labels = []
+
+def print_options():
+		print("1. Adicionar Tarefa")
+		print("2. Listar Tarefas")
+		print("3. Marcar Tarefa como Concluída")
+		print("4. Editar Tarefa")
+		print("5. Limpar Tarefas")
+		print("6. Alterar Priorização de Tarefas")
+		print("7. Listar Tarefas Por Ordem De Prioridade")
+		print("8. Listar Tarefas Por Ordem De Data Final")
+		print("9. Adicionar Tarefa com Categoria")
+		print("10. Listar Tarefas Por Categoria")
+		print("10. Listar Tarefas Por Categoria")
 
 def add_task():
-    task = input("Digite a tarefa que deseja adicionar: ")
-    tasks.append(task)
+    description = input("Digite a tarefa que deseja adicionar: ")
+    due_date = input("Digite a data limite para a tarefa que deseja adicionar: ")
+    save_tasks()
+    tasks.append({
+        "description": description,
+        "due_date": due_date,
+        "labels": []
+    })
     save_tasks()
 
 def list_tasks():
@@ -66,14 +89,6 @@ def list_tasks_by_priority():
     priority_tasks.sort(key=lambda x: x[1])
     for i, (task_index, task) in enumerate(priority_tasks, 1):
         print(f"{i}. {task}")
-
-
-# Função para adicionar uma tarefa com data de vencimento
-def add_task_with_due_date():
-    task = input("Digite a tarefa que deseja adicionar: ")
-    due_date = input("Digite a data de vencimento (formato: AAAA-MM-DD): ")
-    tasks.append(f"{due_date} {task}")
-    save_tasks()
 
 
 # Função para listar tarefas por data de vencimento
@@ -205,7 +220,40 @@ def reorder_tasks():
         if another.lower() != "s":
             break
 
+def add_label_to_task(task_index, label):
+    if 0 <= task_index < len(tasks):
+        tasks[task_index]["labels"].append(label)
+        save_tasks()
+        print("Marcador adicionado com sucesso.")
+    else:
+        print("Número de tarefa inválido.")
 
+# Função para listar tarefas com base em um marcador
+def list_tasks_by_label(label):
+    labeled_tasks = [task for task in tasks if label in task["labels"]]
+    if labeled_tasks:
+        print(f"Tarefas com o marcador '{label}':")
+        for i, task in enumerate(labeled_tasks, 1):
+            print(f"{i}. {task['description']} (Data de Vencimento: {task['due_date']})")
+    else:
+        print(f"Nenhuma tarefa encontrada com o marcador '{label}'.")
+
+def export_tasks_csv(filename):
+    with open(filename, 'w', newline='') as csvfile:
+        fieldnames = ["Descrição", "Data de Vencimento", "Marcadores"]
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for task in tasks:
+            writer.writerow({
+                "Descrição": task["description"],
+                "Data de Vencimento": task["due_date"],
+                "Marcadores": ', '.join(task["labels"])
+            })
+
+# Função para exportar tarefas em formato JSON
+def export_tasks_json(filename):
+    with open(filename, 'w') as jsonfile:
+        json.dump(tasks, jsonfile, indent=4)
 
 
 
