@@ -86,20 +86,3 @@ de uma companhia aérea, a AML.
 | `model`             | `string` | **Obrigatório**. Modelo do avião               |
 | `seatQuantity`      | `number` | **Obrigatório**. Quantidade de assentos no voo |
 | `yearOfManufacture` | `number` | **Obrigatório**. Ano de fabricação do voo      |
-
-## Documentação
-
-Foram feitos 3 commits afim de reduzir as 3 funções mais complexas.
-Segue abaixo link para os commits
-
-[Commit 1 - Refatoração na função `filterFlight`](https://github.com/faelneves/compania_aerea/commit/65f11a097afafc7b34de93abd81d1454f3821a55)
-
-[Commit 2 - Refatoração na função `createPerson`](https://github.com/faelneves/compania_aerea/commit/bd2785e2a89e8d94ec58c80051b28bdf42afea5f)
-
-[Commit 3 - Refatoração na função `createFlight`](https://github.com/faelneves/compania_aerea/commit/41f58bfd08ea63fea66c5fc379f4cd729349f302)
-
-## Contribuindo
-
-Temos também o relatório da versão sem refatorações e da versão após as refatorações
-
-Veja `relatório.html` para saber relatório antes da refatorações, e `relatorioDepoisDeRefatorar.html` para alterações depois das refatorações
