@@ -1,6 +1,7 @@
 import { IPlane } from "../Interfaces/IPlane";
 
 export interface IPlaneRepository {
-  createAirplane(plane: IPlane): IPlane;
-  getPlaneById(id: string): IPlane;
+	createAirplane(plane: IPlane): IPlane;
+	getPlaneById(id: string): IPlane;
+	isValidPlaneModel(plane: string): boolean
 }

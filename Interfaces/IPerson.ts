@@ -1,10 +1,11 @@
 export interface IPerson {
-  name: string;
-  birthDate: Date;
-  cpf: string;
+	name: string;
+	birthDate: Date;
+	cpf: string;
+	age: number
 }
 
 export interface IFilterPerson {
-  name?: string;
-  cpf?: string;
+	name?: string;
+	cpf?: string;
 }

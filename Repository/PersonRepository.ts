@@ -1,6 +1,6 @@
 import { IFilterPerson, IPerson } from "../Interfaces/IPerson";
 
-const people: Array<IPerson> = [];
+export const people: Array<IPerson> = [];
 
 export default class VooRepository {
 	createPerson(person: IPerson): IPerson {
@@ -28,5 +28,16 @@ export default class VooRepository {
 			this.verifyIfTheFilterByCpfIsCorrect(personFilter, person)
 			return true;
 		});
+	}
+
+	isPersonAdult(person: IPerson): boolean {
+		if (person.age > 18) {
+			return true
+		}
+		else return false
+	}
+	isValidCPF(person: IPerson): boolean {
+		if (person.cpf.length !== 11) return false;
+		return true;
 	}
 }
