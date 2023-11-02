@@ -12,4 +12,15 @@ export default class PersonService {
   listPerson(personFilter: IFilterPerson): Array<IPerson> {
     return this.personRepository.listPerson(personFilter);
   }
+
+  isPersonAdult(person) {
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - person.birthDate.getFullYear();
+    return age >= 18;
+  }
+
+  isValidCPF(cpf) {
+    if (cpf.length !== 11) return false;
+    return true;
+  }
 }

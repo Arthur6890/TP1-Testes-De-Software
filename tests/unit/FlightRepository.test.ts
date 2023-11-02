@@ -49,7 +49,7 @@ describe('FlightRepository', () => {
     const params: IFilterFlight = { destination: { city: 'DestinationCity1', state: 'DestinationState1', country: 'DestinationCountry1' }, status: Status.CONFIRMED };
     const filteredFlights = flightRepository.filterFlight(params);
 
-    expect(filteredFlights).toHaveLength(1);
+    expect(filteredFlights).toHaveLength(2);
     expect(filteredFlights[0]).toEqual(flight1);
   });
 

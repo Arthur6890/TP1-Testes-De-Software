@@ -59,7 +59,7 @@ describe("Flight Controller #unit", () => {
 		});
 
 		it("should return 200 when list all the flights", () => {
-			FlightServiceInstance.listFlight = jest.fn((_flight) => {
+			FlightServiceInstance.listFlight = jest.fn((_flight) => {''
 				return [flightOne];
 			});
 
