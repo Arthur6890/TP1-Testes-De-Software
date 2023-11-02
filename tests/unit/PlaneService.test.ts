@@ -7,35 +7,35 @@ const PlaneServiceInstance = PlaneServiceFactory.make(
 );
 
 describe('isValidPlaneModel', () => {
-	it('Deve retornar verdadeiro para um modelo de avião válido', () => {
+	it('Must return true for a valid plane model', () => {
 		const validPlane = { model: 'Boeing-737' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 
 		expect(isValidPlaneModel).toBe(true);
 	});
 
-	it('Deve retornar verdadeiro para outro modelo de avião válido', () => {
+	it('Must return true for another valid plane model', () => {
 		const validPlane = { model: 'Cessna-172' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 
 		expect(isValidPlaneModel).toBe(true);
 	});
 
-	it('Deve retornar falso para um modelo de avião inválido', () => {
+	it('Should return false for an invalid plane model', () => {
 		const validPlane = { model: 'Airbus-A319' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 
 		expect(isValidPlaneModel).toBe(false);
 	});
 
-	it('Deve retornar falso para um modelo de avião em branco', () => {
+	it('Should return false for a blank plane model', () => {
 		const emptyPlane = { model: '' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(emptyPlane.model);
 
 		expect(isValidPlaneModel).toBe(false);
 	});
 
-	it('Deve retornar falso para um objeto de avião inválido', () => {
+	it('Must return false for an invalid plane object', () => {
 		const invalidPlane = { model: 'Boeing-731' };
 
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(invalidPlane.model);
@@ -43,20 +43,20 @@ describe('isValidPlaneModel', () => {
 
 	});
 
-	it('Deve retornar verdadeiro para um modelo de avião válido (Airbus-A330)', () => {
+	it('Must return true for a valid airplane model (Airbus-A330)', () => {
 		const validPlane = { model: 'Boeing-737' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 		expect(isValidPlaneModel).toBe(true);
 	});
 
-	it('Deve retornar verdadeiro para um modelo de avião válido (Martin F-35)', () => {
+	it('Must return true for a valid airplane model (Martin F-35)', () => {
 		const validPlane = { model: 'Martin F-35' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 
 		expect(isValidPlaneModel).toBe(true);
 	});
 
-	it('Deve retornar falso para um modelo de avião inválido com letras maiúsculas', () => {
+	it('Should return false for an invalid plane model with capital letters', () => {
 		const invalidPlane = { model: 'BOEING-737' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(invalidPlane.model);
 
@@ -64,14 +64,14 @@ describe('isValidPlaneModel', () => {
 
 	});
 
-	it('Deve retornar falso para um modelo de avião inválido com espaços em branco', () => {
+	it('Should return false for an invalid plane model with blanks', () => {
 		const invalidPlane = { model: 'Cessna 172' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(invalidPlane.model);
 
 		expect(isValidPlaneModel).toBe(false);
 	});
 
-	it('Deve retornar false para um modelo de avião válido (Boeing-747) com espaços em branco antes e depois', () => {
+	it('Must return false for a valid plane model (Boeing-747) with whitespace before and after', () => {
 		const validPlane = { model: '  Boeing-747  ' };
 		const isValidPlaneModel = PlaneServiceInstance.isValidPlaneModel(validPlane.model);
 
