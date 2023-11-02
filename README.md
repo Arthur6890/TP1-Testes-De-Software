@@ -1,7 +1,7 @@
 # AML Airlines
 
 Este é um sistema feito em Node.js, utilizando Typescript para simular o sistema
-de uma companhia aérea, a AML.
+de uma companhia aérea, a AML. Todos os testes unitários deste sistema foram feitos em JEST.JS
 
 ## Autores
 
