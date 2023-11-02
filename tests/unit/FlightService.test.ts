@@ -3,6 +3,7 @@ import { flightOne } from "../mocks/FlightObject";
 import FlightRepositoryMock from "../mocks/FlightRepositoryMock";
 import { IFlight, Status } from "../../Interfaces/IFlight";
 import { IPlane } from "../../Interfaces/IPlane";
+import { IPerson } from "../../Interfaces/IPerson";
 
 const FlightRepositoryInstance = new FlightRepositoryMock();
 const FlightServiceInstance = FlightServiceFactory.make(
@@ -26,6 +27,55 @@ let plane: IPlane = {
 	seatQuantity: 0,
 	yearOfManufacture: 2020,
 }
+
+const person: IPerson = {
+	name: 'John Doe',
+	birthDate: new Date('1990-01-01'),
+	cpf: '1234567890',
+	age: 33,
+};
+
+const person2: IPerson = {
+	name: 'Jane Doe',
+	birthDate: new Date('2010-05-15'),
+	cpf: '9876543210',
+	age: 12,
+};
+
+const person3: IPerson = {
+	name: 'Sam Smith',
+	birthDate: new Date(new Date().getFullYear() - 18, 0, 1),
+	cpf: '5678901234',
+	age: 18,
+};
+
+const flight1: IFlight = {
+	id: '1',
+	pilot: 'John Smith',
+	origin: { city: 'New York', country: 'USA', state: "NY" },
+	destination: { city: 'Los Angeles', country: 'USA', state: "CA" },
+	departure: new Date(new Date().getTime() - 3600000), // 1 hour ago
+	status: Status.PENDING,
+};
+
+const flight2: IFlight = {
+	id: '2',
+	pilot: 'Jane Doe',
+	origin: { city: 'London', country: 'UK', state: "n/a" },
+	destination: { city: 'Paris', country: 'France', state: "n/a" },
+	departure: new Date(new Date().getTime() + 7200000), // 2 hours in the future
+	status: Status.CONFIRMED,
+};
+
+const flight3: IFlight = {
+	id: '3',
+	pilot: 'Sam Johnson',
+	origin: { city: 'Berlin', country: 'Germany', state: "n/a" },
+	destination: { city: 'Madrid', country: 'Spain', state: "n/a" },
+	departure: new Date(new Date().getTime() - 1800000), // 30 minutes ago
+	status: Status.PENDING,
+};
+
 
 describe("Flight Service #unit", () => {
 	describe("create flight", () => {
@@ -190,6 +240,41 @@ describe("Flight Service #unit", () => {
 			expect(isSuitable).toBe(false);
 		});
 	});
+
+	describe('isPersonEligibleToBookFlight', () => {
+		it('should return true if the person is 18 years old or older', () => {
+			const result = FlightServiceInstance.isPersonEligibleToBookFlight(person);
+			expect(result).toBe(true);
+		});
+
+		it('should return false if the person is younger than 18', () => {
+			const result = FlightServiceInstance.isPersonEligibleToBookFlight(person2);
+			expect(result).toBe(false);
+		});
+
+		it('should return true if the person is exactly 18 years old', () => {
+			const result = FlightServiceInstance.isPersonEligibleToBookFlight(person3);
+			expect(result).toBe(true);
+		});
+	})
+
+	describe('isFlightDelayedBasedOnTime', () => {
+		it('should return true if the flight is delayed (Status.DELAYED)', () => {
+			const result = FlightServiceInstance.isFlightDelayedBasedOnTime(flight1);
+			expect(result).toBe(true);
+		});
+	})
+
+	it('should return false if the flight is not delayed (Status.CONFIRMED)', () => {
+		const result = FlightServiceInstance.isFlightDelayedBasedOnTime(flight2);
+		expect(result).toBe(false);
+	});
+
+	it('should return true if the flight status is not DELAYED (Status.PENDING)', () => {
+		const result = FlightServiceInstance.isFlightDelayedBasedOnTime(flight3);
+		expect(result).toBe(true);
+	});
+
 
 });
 

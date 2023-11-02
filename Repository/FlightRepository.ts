@@ -1,4 +1,6 @@
 import { IFilterFlight, IFlight, Status } from "../Interfaces/IFlight";
+import { IPerson } from "../Interfaces/IPerson";
+import { IPlane } from "../Interfaces/IPlane";
 import { IFlightRepository } from "./IFlightRepository";
 
 const flights: Array<IFlight> = [];
@@ -61,5 +63,23 @@ export default class FlightRepository implements IFlightRepository {
 		}
 		flights[flightIndex].status = status;
 		return flights[flightIndex];
+	}
+
+	isPersonEligibleToBookFlight(person: IPerson): boolean {
+		const currentDate = new Date();
+		const age = currentDate.getFullYear() - person.birthDate.getFullYear();
+		return age >= 18;
+	}
+
+	isFlightDelayedBasedOnTime(flight: IFlight): boolean {
+		const currentTime = new Date();
+		return currentTime > new Date(flight.departure);
+	}
+
+	isPlaneModelSuitableForFlight(plane: IPlane, flight: IFlight): boolean {
+		if (flight.ocupation !== undefined) {
+			return plane.seatQuantity >= flight.ocupation;
+		}
+		return false
 	}
 }
