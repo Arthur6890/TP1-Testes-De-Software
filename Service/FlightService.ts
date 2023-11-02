@@ -1,18 +1,19 @@
 import { IFilterFlight, IFlight, Status } from "../Interfaces/IFlight";
 import { IFlightRepository } from "../Repository/IFlightRepository";
+import {IPlane} from "../Interfaces/IPlane";
 export default class FlightService {
   private flightRepository: IFlightRepository;
   constructor(flightRepository: IFlightRepository) {
     this.flightRepository = flightRepository;
   }
 
-  calculateFlightDuration(flight) {
+  calculateFlightDuration(flight: IFlight) {
     const departureTime = new Date(flight.departure);
     const arrivalTime = flight.arrival ? new Date(flight.arrival) : new Date();
-    return (arrivalTime - departureTime) / (60 * 1000);
+    return (arrivalTime.getTime() - departureTime.getTime()) / (60 * 1000);
   }
 
-  generateMessageByFlightStatus(flight) {
+  generateMessageByFlightStatus(flight: IFlight) {
     if (flight.status == Status.CONFIRMED) {
       return "The flight is confirmed and can proceed."
     }
@@ -24,25 +25,28 @@ export default class FlightService {
     }
   }
 
-  isValidPlaneModel(plane) {
+  isValidPlaneModel(plane: IPlane) {
     const validModels = ['Boeing-737', 'Boeing-747', 'Airbus-A320', 'Airbus-A3280', 'Martin F-35',
     'Cessna-172', 'Airbus-A330'];
     return validModels.includes(plane.model);
   }
 
-  isFlightCheckInAvailable(flight) {
+  isFlightCheckInAvailable(flight: IFlight) {
     const currentTime = new Date();
     const departureTime = new Date(flight.departure);
-    const timeDifference = departureTime - currentTime;
+    const timeDifference = departureTime.getTime() - currentTime.getTime();
     return timeDifference <= 24 * 60 * 60 * 1000; // Menos de 24 horas
   }
 
-  isInternationalFlight(flight) {
+  isInternationalFlight(flight: IFlight) {
     return flight.origin.country !== flight.destination.country;
   }
 
-  isPlaneModelSuitableForFlight(plane, flight) {
-    return plane.seatQuantity >= flight.ocupation;
+  isPlaneModelSuitableForFlight(plane: IPlane, flight: IFlight) {
+    if (flight.ocupation !== undefined) {
+      return plane.seatQuantity >= flight.ocupation;
+    }
+    return false;
   }
 
   verifyIfOriginCityIsEqualToDestinationCity(flight: IFlight) {
