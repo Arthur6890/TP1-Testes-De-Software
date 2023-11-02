@@ -12,4 +12,10 @@ export default class PlaneService {
   getPlaneById(id: string) {
     return this.planeRepository.getPlaneById(id);
   }
+
+  isValidPlaneModel(plane: IPlane) {
+    const validModels = ['Boeing-737', 'Boeing-747', 'Airbus-A320', 'Airbus-A3280', 'Martin F-35',
+      'Cessna-172', 'Airbus-A330'];
+    return validModels.includes(plane.model);
+  }
 }

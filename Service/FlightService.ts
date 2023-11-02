@@ -10,6 +10,9 @@ export default class FlightService {
   calculateFlightDuration(flight: IFlight) {
     const departureTime = new Date(flight.departure);
     const arrivalTime = flight.arrival ? new Date(flight.arrival) : new Date();
+    if (departureTime.getTime() >= arrivalTime.getTime()) {
+      throw new Error("Hora de chegada invalida");
+    }
     return (arrivalTime.getTime() - departureTime.getTime()) / (60 * 1000);
   }
 
@@ -25,17 +28,10 @@ export default class FlightService {
     }
   }
 
-  isValidPlaneModel(plane: IPlane) {
-    const validModels = ['Boeing-737', 'Boeing-747', 'Airbus-A320', 'Airbus-A3280', 'Martin F-35',
-    'Cessna-172', 'Airbus-A330'];
-    return validModels.includes(plane.model);
-  }
-
-  isFlightCheckInAvailable(flight: IFlight) {
-    const currentTime = new Date();
+  isFlightCheckInAvailable(flight: IFlight, currentTime: Date) {
     const departureTime = new Date(flight.departure);
     const timeDifference = departureTime.getTime() - currentTime.getTime();
-    return timeDifference <= 24 * 60 * 60 * 1000; // Menos de 24 horas
+    return ((timeDifference <= 24 * 60 * 60 * 1000) && (timeDifference > 0)); // Menos de 24 horas
   }
 
   isInternationalFlight(flight: IFlight) {
