@@ -24,9 +24,9 @@ jobs:
       - run: npm install
       - run: npm ci
       - run: npm run build --if-present
-      - run: npm run test
+      - name: Run Jest with coverage
+        run: npm run test -- --coverage
       - name: Generate coverage report
-        uses: jest-community/jest-coverage-report-action@v2.0.9
+        uses: madss/jest-coverage-report-action@v1
         with:
-          path: coverage/lcov.info
-          report-type: html
+          outputDirectory: coverage
