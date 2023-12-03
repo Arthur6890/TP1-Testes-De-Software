@@ -24,9 +24,4 @@ jobs:
       - run: npm install
       - run: npm ci
       - run: npm run build --if-present
-      - name: Run Jest with coverage
-        run: npm run test -- --coverage
-      - name: Generate coverage report
-        uses: madss/jest-coverage-report-action@v1
-        with:
-          outputDirectory: coverage
+      - run: npm run test
