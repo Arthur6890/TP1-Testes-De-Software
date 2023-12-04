@@ -9,7 +9,6 @@ module.exports = {
   },
   testMatch: ["**/tests/**/*.test.(ts|js|tsx)"],
   testEnvironment: "node",
-  collectCoverageFrom: ["*/.{ts,tsx}"],
   coveragePathIgnorePatterns: [
     "./node_modules/",
     "./docs/",
