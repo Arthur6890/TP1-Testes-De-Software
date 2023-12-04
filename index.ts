@@ -7,6 +7,7 @@ import TicketControllerFactory from "./Factories/TicketControllerFactory"
 dotenv.config();
 
 const app = express();
+const PORT: number = parseInt(process.env.PORT || '3000');
 
 app.use(express.json());
 
@@ -14,10 +15,6 @@ const flightController = FlightControllerFactory.make();
 const personController = PersonControllerFactory.make();
 const planeController = PlaneControllerFactory.make();
 const ticketController = TicketControllerFactory.make();
-
-app.get("/", (req, res) => {
-	res.send("Comapania Aerea");
-});
 
 app.post("/flight/create", flightController.createFlight);
 app.get("/flight/list", flightController.listFlight);
@@ -33,6 +30,6 @@ app.get("/plane/get/:id", planeController.getFlight);
 app.post("/ticket/emit", ticketController.emitTicket)
 app.get("/ticket/get/:id", ticketController.getTicketById)
 
-app.listen(process.env.PORT);
-
-console.log(`aplicação roando na porta ${process.env.PORT}`);
+app.listen(PORT, () => {
+	console.log(`Servidor rodando na porta ${PORT}`);
+});
