@@ -75,6 +75,15 @@ export default class FlightService {
 		return this.flightRepository.changeStatus(id, status);
 	}
 
+	getStatus(id: string) {
+		let flight = this.getFlightById(id);
+		if (this.isFlightDelayedBasedOnTime(flight)){
+			return "Voo atrasado"
+		} else {
+			return "Voo pontual"
+		}
+	}
+
 	isFlightDelayedBasedOnTime(flight: IFlight): boolean {
 		const currentTime = new Date();
 		return currentTime > new Date(flight.departure);

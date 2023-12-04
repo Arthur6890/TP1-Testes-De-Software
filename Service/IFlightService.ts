@@ -7,6 +7,7 @@ export interface IFlightService {
 	listFlight(params: IFilterFlight);
 	getFlightById(id: string);
 	changeStatus(id: string, status: Status);
+	getStatus(id: string);
 	isPersonEligibleToBookFlight(person: IPerson)
 	isFlightDelayedBasedOnTime(flight: IFlight)
 	isPlaneModelSuitableForFlight(plane: IPlane, flight: IFlight)

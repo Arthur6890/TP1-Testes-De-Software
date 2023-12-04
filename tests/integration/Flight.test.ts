@@ -133,4 +133,27 @@ describe("Flight #integration", () => {
 			});
 		});
 	});
+
+	describe("get flight status", () => {
+		it("should return delayed flight", () => {
+			const req = {
+				params: { id: flightOne.id },
+			} as unknown as Request;
+
+			const mockJsonResponse = jest.fn();
+
+			const res = {
+				status: jest.fn().mockImplementation(() => ({
+					json: mockJsonResponse,
+				})),
+			} as unknown as Response;
+
+			FlightControllerInstance.getStatus(req, res, jest.fn());
+
+			expect(res.status).toHaveBeenCalledWith(200);
+			expect(mockJsonResponse).toHaveBeenCalledWith({
+				status: "Voo atrasado",
+			});
+		});
+	});
 });

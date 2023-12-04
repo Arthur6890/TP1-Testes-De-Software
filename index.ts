@@ -20,6 +20,7 @@ app.post("/flight/create", flightController.createFlight);
 app.get("/flight/list", flightController.listFlight);
 app.get("/flight/get/:id", flightController.getFlights);
 app.patch("/flight/changeStatus/:id", flightController.changeStatus);
+app.get("/flight/get/status/:id", flightController.getStatus);
 
 app.post("/person/create", personController.createPerson);
 app.get("/person/list", personController.listPerson);

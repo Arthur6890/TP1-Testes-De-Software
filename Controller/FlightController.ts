@@ -49,4 +49,15 @@ export default class FlightController {
       response.status(400).json({ error: error.message });
     }
   };
+
+  getStatus: RequestHandler = (request, response) => {
+    try {
+      const flightId = request.params.id;
+
+      const status = this.flightService.getStatus(flightId);
+      response.status(200).json({ status });
+    } catch (error: any) {
+      response.status(400).json({ error: error.message });
+    }
+  }
 }

@@ -13,7 +13,7 @@ export const flightOne = {
 		state: "RJ",
 		country: "Brasil",
 	},
-	departure: new Date(),
+	departure: new Date(2021, 11, 31),
 	status: Status.PENDING,
 	ocupation: 100,
 } as IFlight;
