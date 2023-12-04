@@ -4,7 +4,6 @@ module.exports = {
       tsconfig: "tsconfig.jest.json",
     },
   },
-  moduleFileExtensions: ["ts", "tsx", "js"],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
@@ -19,4 +18,5 @@ module.exports = {
     "./infra/",
     "./development",
   ],
+  coverageReporters: ["lcov", "text", "html"],
 };
