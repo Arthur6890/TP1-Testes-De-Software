@@ -26,3 +26,9 @@ jobs:
       - run: npm run build --if-present
       - run: npm run test
       - run: npm run test:coverage
+
+      # Adicione o bloco abaixo para fazer o upload dos relatórios de cobertura para o Codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: 7b7b1470-e28a-44ff-abd3-3965a7d26715
